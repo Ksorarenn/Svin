@@ -3,16 +3,20 @@ import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 import androidx.activity.EdgeToEdge;
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 public class MainActivity extends AppCompatActivity {
     private Integer clicker = 0;
+    ProgressBar progressBar;
+    ImageView imageView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -23,6 +27,8 @@ public class MainActivity extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+        progressBar = findViewById(R.id.progressBar);
+        imageView = findViewById(R.id.imageView);
     }
     @Override
     protected void onRestoreInstanceState(Bundle savedInstanceState) {
@@ -61,6 +67,14 @@ public class MainActivity extends AppCompatActivity {
     }
     @SuppressLint("SetTextI18n")
     public void one_click_button (View view){
+        progressBar.incrementProgressBy(10);
+        if (progressBar.getProgress() >=200 && progressBar.getProgress() <= 399) {
+            imageView.setImageResource(R.drawable.piglet2);
+        }
+        if (progressBar.getProgress() >= 400) {
+            Toast.makeText(MainActivity.this, "Вот это свин..", Toast.LENGTH_SHORT).show();
+            imageView.setImageResource(R.drawable.piglet31);
+        }
         clicker++;
         TextView TXT = (TextView)findViewById(R.id.textView2);
         TXT.setText(clicker.toString());
